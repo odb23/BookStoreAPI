@@ -32,5 +32,13 @@ namespace BookStoreAPI.Controllers
 
             return Ok(data);
         }
+
+        [HttpPost("")] 
+        public async Task<IActionResult> AddBook ([FromBody]BookModel book)
+        {
+            var data = await _bookRepository.AddBookAsync(book);
+
+            return CreatedAtAction(nameof(GetBookById), new { id = data, controller = "books" }, data);
+        }
     }
 }
