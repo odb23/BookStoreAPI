@@ -19,14 +19,16 @@ namespace BookStoreAPI.Repository
 
         public async Task<List<BookModel>> GetAllBooksAsync()
         {
-            var records = await this._dbContext.Books.Select(book => new BookModel()
-            {
-                Id = book.Id,
-                Title = book.Title,
-                Description = book.Description,
-            }).ToListAsync();
+            /* var records = await this._dbContext.Books.Select(book => new BookModel()
+             {
+                 Id = book.Id,
+                 Title = book.Title,
+                 Description = book.Description,
+             }).ToListAsync();*/
 
-            return records;
+            var records = await this._dbContext.Books.ToListAsync();
+
+            return this._mapper.Map<List<BookModel>>(records);
         }
 
         public async Task<BookModel> GetBookByIdAsync(int bookId)
@@ -50,7 +52,7 @@ namespace BookStoreAPI.Repository
                 Description = bookModel.Description,
             };
 
-             this._dbContext.Books.Add(book);
+            this._dbContext.Books.Add(book);
             await this._dbContext.SaveChangesAsync();
 
             return book.Id;
