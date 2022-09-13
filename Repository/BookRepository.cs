@@ -49,17 +49,27 @@ namespace BookStoreAPI.Repository
 
             return book.Id;
         }
-
         public async Task UpdateBookAsync(int id, BookModel bookModel)
         {
-            var book = await this._dbContext.Books.FindAsync(id);
+            /*var book = await this._dbContext.Books.FindAsync(id);
 
             if (book !=null)
             {
                 book.Title = bookModel.Title;
                 book.Description = bookModel.Description;
                 await this._dbContext.SaveChangesAsync();   
-            }
+            }*/
+
+            var book = new Books()
+            {
+                Id=id,
+                Title = bookModel.Title,
+                Description = bookModel.Description,
+            };
+
+            this._dbContext.Books.Update(book);
+            await this._dbContext.SaveChangesAsync();
+
         }
     }
 }
