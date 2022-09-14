@@ -14,7 +14,9 @@ builder.Services.AddIdentity<UserModel, IdentityRole>()
     .AddEntityFrameworkStores<BookStoreContext>()
     .AddDefaultTokenProviders(); // Added identity and role for authentication and authorization.
 
+// Database services registration
 builder.Services.AddTransient<IBookRepository, BookRepository>();
+builder.Services.AddTransient<IUserRepository, UserRepository>();
 
 builder.Services.AddControllers().AddNewtonsoftJson();
 builder.Services.AddAutoMapper(typeof(Program));
