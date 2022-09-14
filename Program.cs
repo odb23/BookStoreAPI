@@ -13,7 +13,11 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddDbContext<BookStoreContext>(    // Added Db context fro database reference
     options => options.UseSqlServer(
         builder.Configuration.GetConnectionString("BookStoreDb")));
-builder.Services.AddIdentity<UserModel, IdentityRole>()
+builder.Services.AddIdentity<UserModel, IdentityRole>(opt =>
+{
+    opt.Password.RequireDigit = false;
+    opt.Password.RequireNonAlphanumeric = false;
+})
     .AddEntityFrameworkStores<BookStoreContext>()
     .AddDefaultTokenProviders(); // Added identity and role for authentication and authorization.
 
@@ -33,7 +37,7 @@ builder.Services.AddAuthentication(option =>
 {
     option.SaveToken = true;
     option.RequireHttpsMetadata = false;
-    option.TokenValidationParameters = new Microsoft.IdentityModel.Tokens.TokenValidationParameters()
+    option.TokenValidationParameters = new TokenValidationParameters()
     {
         ValidateIssuer = true,
         ValidateAudience = true,

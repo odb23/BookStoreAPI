@@ -5,21 +5,21 @@ namespace BookStoreAPI.Models
     public class SignUpModel
     {
         [Required]
-        public string FirstName { get; set; }
+        public string? FirstName { get; set; }
 
         [Required]
-        public string LastName { get; set; }
+        public string? LastName { get; set; }
 
         [Required]
         [EmailAddress]
-        public string Email { get; set; }
+        public string? Email { get; set; }
 
         [Required]
         [Compare("ConfirmPassword")]
-        public string Password { get; set; }
+        public string? Password { get; set; }
 
         [Required]
-        public string ConfirmPassword { get; set; }
+        public string? ConfirmPassword { get; set; }
 
 
     }
